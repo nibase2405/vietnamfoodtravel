@@ -1,0 +1,11 @@
+.next
+node_modules
+.env.local
+.env
+dist
+coverage
+*.tsbuildinfo
+.tools
+Chongqing TRAVEL
+*.log
+*.err.log

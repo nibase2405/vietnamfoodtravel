@@ -1,0 +1,7 @@
+import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { DestinationForm } from "@/components/forms/DestinationForm";
+
+export default async function AdminEditDestinationPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return <section><AdminPageHeader title="編輯目的地" /><div className="mt-6 rounded-lg border bg-white p-5"><DestinationForm mode="edit" slug={slug} /></div></section>;
+}

@@ -1,0 +1,12 @@
+import { NextResponse } from "next/server";
+import { requireApiAdmin } from "@/lib/api/guards";
+
+export async function POST(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { supabase, response } = await requireApiAdmin();
+  if (response) return response;
+  const { id } = await params;
+  const { data, error } = await supabase.from("guides").update({ status: "approved", verified_at: new Date().toISOString() }).eq("id", id).select("user_id").single();
+  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (data?.user_id) await supabase.from("users").update({ role: "guide", status: "active" }).eq("id", data.user_id);
+  return NextResponse.json({ ok: true });
+}
